@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 
-export function GetSource(props: any) { //: JSON {
-    const [id, setID] = useState(-1);
+export default function GetSource(props: any) { //: JSON {
+    const [id, setID] = useState(NaN);
     const [name, setName] = useState("");
     const [organization, setOrganization] = useState("");
     const [phone, setPhone] = useState("");
@@ -14,7 +14,7 @@ export function GetSource(props: any) { //: JSON {
             setName(response.data.name);
             setOrganization(response.data.organization);
             setPhone(response.data.phone);
-            setEmail(response.data.phone);
+            setEmail(response.data.email);
             setRemarks(response.data.remarks);
         }).catch(err => console.error(err));
     }
@@ -33,5 +33,3 @@ export function GetSource(props: any) { //: JSON {
         </div>
     );
 }
-
-export default GetSource;
