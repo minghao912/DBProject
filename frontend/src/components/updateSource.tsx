@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 export default function UpdateSource(props: any) {
     const [id, setID] = useState(NaN);
@@ -49,7 +49,7 @@ export default function UpdateSource(props: any) {
 
         setID(newID);
 
-        if (newID == NaN) {
+        if (isNaN(newID)) {
             setName("");
             setOrganization("");
             setPhone("");

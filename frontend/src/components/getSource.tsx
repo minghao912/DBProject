@@ -24,7 +24,7 @@ export default function GetSource(props: any) { //: JSON {
             <label>ID: </label>  <input onChange={(e) => setID(parseInt(e.target.value))} />
             <button onClick={get}>Get</button>
             <br />
-            <p>Your source with ID {id}:</p>
+            <p>Your source with ID {isNaN(id) ? "" : id}:</p>
             <p>Name: {name}</p>
             <p>Organization: {organization}</p>
             <p>Phone: {phone}</p>
