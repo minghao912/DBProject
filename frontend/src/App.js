@@ -3,11 +3,10 @@ import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import React, {useEffect, useState} from 'react';
-import { Container, Row, Col, Button} from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import Main from './components/main.tsx';
-import GetAllSources from './components/getAllSources';
 
 function App() {
   // ALL_SOURCES: 1, ADD_SOURCE: 2, EDIT_SOURCE: 3

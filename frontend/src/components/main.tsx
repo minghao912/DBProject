@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-
-import { Container, Row, Col, Button} from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import GetAllSources from './getAllSources';
 import CreateSoure from './createSource';
 import UpdateSource from './updateSource';
+import { MainProps, PagesToLoad } from './interfaces';
 
-export default function Main(props: any) {
-    let pageToLoad = props.toLoad;
+export default function Main(props: MainProps) {
+    let pageToLoad = props.toLoad as PagesToLoad;
 
     console.log("Reloading, page to load is now " + pageToLoad);
 
@@ -15,16 +15,16 @@ export default function Main(props: any) {
     let page: JSX.Element;
     
     switch (pageToLoad) {
-        case 0:
+        case PagesToLoad.NONE:
             page = <p>Click one of the above buttons</p>;
             break;
-        case 1:
+        case PagesToLoad.ALL_SOURCES:
             page = <GetAllSources />;
             break;
-        case 2:
+        case PagesToLoad.ADD_SOURCE:
             page = <CreateSoure />;
             break;
-        case 3:
+        case PagesToLoad.EDIT_SOURCE:
             page = <UpdateSource />;
             break;
         default:

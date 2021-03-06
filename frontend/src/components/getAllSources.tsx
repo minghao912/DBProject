@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
-import { Source } from './Source';
-
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card} from 'react-bootstrap';
+
+import { Source } from './interfaces';
 
 export default function GetAllSources(props: any) {
     let [data, setData] = useState<Source[]>([] as Source[]);
