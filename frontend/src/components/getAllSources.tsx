@@ -12,22 +12,8 @@ export default function GetAllSources(props: any) {
             setData(response.data as Source[]);
             
             console.log("Got all sources:\n" + data);
-
-            // Render
-            loadSources();
         }).catch(err => console.error(err));
     }, []);
-
-    function loadSources() {
-        // Format all the sources as cards
-        let tempHTML = "";
-        for (const s of data) {
-            tempHTML += getCardFromSource(s);
-            tempHTML += '\n';
-        }
-
-        console.log(tempHTML);
-    }
 
     return (
         <Container className="justify-content-md-center">
@@ -54,7 +40,7 @@ function GetCardsForAllSources(props: any): JSX.Element {
 }
 
 function getCardFromSource(source: Source): JSX.Element {
-    console.log("Creating card");
+    console.log("Creating card for source " + source.id);
 
     return (<Row className="row my-3">
         <Card style={{width: "100%"}}>
