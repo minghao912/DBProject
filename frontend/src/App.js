@@ -1,22 +1,30 @@
 import logo from './logo.svg';
+
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import GetSource from './components/getSource.tsx';
-import GetAllSources from './components/getAllSources.tsx';
-import CreateSource from './components/createSource.tsx';
-import UpdateSource from './components/updateSource.tsx';
+import React, {useEffect, useState} from 'react';
+import { Container, Row, Col, Button} from 'react-bootstrap';
+
+import Main from './components/main.tsx';
+import GetAllSources from './components/getAllSources';
 
 function App() {
-  return (<div>
-      <GetSource />
-      <br />
-      <CreateSource />
-      <br />
-      <UpdateSource />
-      <br />
-      <GetAllSources />
-    </div>
-  );
+  // ALL_SOURCES: 1, ADD_SOURCE: 2, EDIT_SOURCE: 3
+  let [pageToLoad, setPageToLoad] = useState(0);
+
+  // Gets rid of previous screen and renders the "GetAllSources" screen
+  function renderAllSources() {
+    setPageToLoad(1);
+    console.log("Displaying new page: " + pageToLoad);
+  }
+  
+  return (<Container style={{alignContent: "center"}}>
+    <Row className="justify-content-md-center my-3">
+        <Button onClick={renderAllSources}>Get All Sources</Button>
+    </Row>
+    <Main toLoad={pageToLoad}/>
+  </Container>);
 }
 
 export default App;
