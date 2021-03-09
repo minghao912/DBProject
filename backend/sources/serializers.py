@@ -4,4 +4,4 @@ from .models import Source
 class SourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Source
-        fields = ["name", "organization", "phone", "email", "remarks"]
+        fields = ["id", "name", "organization", "phone", "email", "remarks"]

@@ -1,17 +1,48 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 
-export default function UpdateSource(props: any) {
-    const [id, setID] = useState(NaN);
+import { Source, UpdateProps } from './utils';
+
+export default function UpdateSource(props: UpdateProps): JSX.Element {
+    const [source, setSource] = useState<Source>({} as Source);
+    const [prefillInfo, setPrefillInfo] = useState<string[]>([]);
+    const sourceToEdit = props.sourceToEdit as number;
+
     const [name, setName] = useState("");
     const [organization, setOrganization] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [remarks, setRemarks] = useState("");
-    const [retVal, setRetVal] = useState("");
+
+    // Automatically get source information
+    useEffect(() => {
+        get(sourceToEdit);
+    }, []);
+
+    // No source with ID found
+    if (source == undefined)
+        return <></>;
+
+    function get(id: number) {
+        axios.get(`http://localhost:5000/sources/get/${id}`).then(response => {
+            setData(response.data as Source)
+        }).catch(err => console.error(err));
+    }
+
+    function setData(s: Source) {
+        let info = [s.name, s.organization, s.phone, s.email, s.remarks];
+        setSource(s);
+        setName(s.name);
+        setOrganization(s.organization);
+        setPhone(s.phone);
+        setEmail(s.email);
+        setRemarks(s.remarks);
+        setPrefillInfo(info);
+    }
 
     function submit() {
-        axios.put(`http://localhost:5000/sources/update/${id}`, {
+        axios.put(`http://localhost:5000/sources/update/${source.id}`, {
             name: name,
             organization: organization,
             phone: phone,
@@ -19,58 +50,56 @@ export default function UpdateSource(props: any) {
             remarks: remarks
         }).then(response => {
             console.log(response);
-            setRetVal(`Your new source has been updated with ID ${response.data.id}`);
+            console.log(`Your new source has been updated with ID ${response.data.id}`);
         }).catch(err => {
             console.log(err);
         });
     }
 
-    function populateOld(newID: number): void {
-        axios.get(`http://localhost:5000/sources/get/${newID}`).then(response => {
-            setName(response.data.name);
-            setOrganization(response.data.organization);
-            setPhone(response.data.phone);
-            setEmail(response.data.email);
-            setRemarks(response.data.remarks);
-        }).catch(err => {
-            console.error(err);
-
-            // Reset fields
-            setName("");
-            setOrganization("");
-            setPhone("");
-            setEmail("");
-            setRemarks("");
-        });
-    }
-
-    function IDChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        let newID = parseInt(e.target.value);
-
-        setID(newID);
-
-        if (isNaN(newID)) {
-            setName("");
-            setOrganization("");
-            setPhone("");
-            setEmail("");
-            setRemarks("");
-        } else {
-            populateOld(newID);
-        }
-    }
-
+    // Render input form
     return (
-        <div>
-            <label>ID: </label> <input onChange={(e) => IDChange(e)} />
-            <label>Name: </label> <input onChange={(e) => setName(e.target.value)} value={name} />
-            <label>Organization: </label><input onChange={(e) => setOrganization(e.target.value)} value={organization} />
-            <label>Phone: </label> <input onChange={(e) => setPhone(e.target.value)} value={phone} />
-            <label>Email: </label> <input onChange={(e) => setEmail(e.target.value)} value={email} />
-            <label>Remarks: </label> <input onChange={(e) => setRemarks(e.target.value)} value={remarks} />
-            <button onClick={submit}>Submit</button>
-            <br />
-            <p>{retVal}</p>
-        </div>
+        <Row className={`${props.className} align-items-center center-align-children full-width`}>
+            <Form className="center-align-children full-width">
+                <Form.Group>
+                    <h2>Basic Information</h2>
+                    <Form.Row className="mb-5">
+                        <Form.Group as={Col}>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" name="name" defaultValue={prefillInfo[0]} onChange={e => setName(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group as={Col}>
+                            <Form.Label>Organization</Form.Label>
+                            <Form.Control type="text" name="organization" defaultValue={prefillInfo[1]} onChange={e => setOrganization(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group as={Col}>
+                            <Form.Label>Phone</Form.Label>
+                            <Form.Control type="text" name="phone" defaultValue={prefillInfo[2]} onChange={e => setPhone(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group as={Col}>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" name="email" defaultValue={prefillInfo[3]} onChange={e => setEmail(e.target.value)} />
+                        </Form.Group>
+                    </Form.Row>
+                </Form.Group>
+
+                <Form.Group>
+                    <h2>Additional Information</h2>
+                    <Form.Row className="mb-5">
+                        <Form.Group as={Col}>
+                            <Form.Control as="textarea" name="remarks" id="remarks-input" defaultValue={prefillInfo[4]} onChange={e => setRemarks(e.target.value)} />
+                        </Form.Group>
+                    </Form.Row>
+                </Form.Group>
+
+                <div className="text-center">
+                    <Button variant="dark" size="lg" type="submit" onClick={submit}>
+                        Update Source
+                    </Button>
+                </div>
+            </Form>
+        </Row>
     );
 }

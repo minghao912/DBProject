@@ -41,15 +41,16 @@
 /* CUSTOM */
 header {
   display: flex;
-  justify-content: space-around;
-  width:100%;
-  position: fixed;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* position: fixed; */
   top: 0;
-  left: 50%;
-  -moz-transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
   z-index: 999;
+}
+
+.center-align-children {
+  align-content: center;
 }
 
 .centered-item {
@@ -62,10 +63,24 @@ header {
 }
 
 .first-item-below-header {
-  margin-top: 100px;
+  /* margin-top: 100px; Didn't need this anymore */
 }
 
-.float {
+.float-edit-button {
+  display: inline;
+  position: relative;
+  width: 2.5em;
+  height: 2.5em;
+  bottom: 0px;
+  right: 0px;
+  color: black;
+  border-radius: 5px;
+  
+  text-align: center;
+  padding-top: 2.5vw;
+}
+
+.float-bottom-right {
   position: fixed;
   width: 60px;
   height: 60px;
@@ -76,9 +91,22 @@ header {
   border-radius: 10px;
   text-align: center;
   padding-top: 2.5vw;
-  box-shadow: 2px 2px 3px #999
+  box-shadow: 2px 2px 3px #999;
+  z-index: 999;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .pointer-hover:hover {
   cursor: pointer;
+}
+
+.source-card-title {
+  padding-top: 10px;
+}
+
+#remarks-input {
+  height: 30vh;
 }
