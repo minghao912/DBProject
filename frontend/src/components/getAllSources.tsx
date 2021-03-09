@@ -42,7 +42,7 @@ function GetCardsForAllSources(props: any): JSX.Element {
 function getCardFromSource(source: Source): JSX.Element {
     console.log("Creating card for source " + source.id);
 
-    return (<Row className="row my-3">
+    return (<Row className="first-item-below-header row my-3">
         <Card style={{width: "100%"}}>
             <Card.Title>{source.name}</Card.Title>
             <Card.Body style={{alignContent: "center"}}>

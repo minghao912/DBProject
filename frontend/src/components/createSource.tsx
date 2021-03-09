@@ -25,7 +25,7 @@ export default function CreateSource(props: any) {
     }
 
     return (
-        <div style={{"marginTop": "100px"}}>
+        <div className={"first-item-below-header"}>
             <label>Name: </label>  <input onChange={(e) => setName(e.target.value)} />
             <label>Organization: </label><input onChange={(e) => setOrganization(e.target.value)} />
             <label>Phone: </label> <input onChange={(e) => setPhone(e.target.value)} />
