@@ -11,7 +11,7 @@ import { faPlus, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import Main from './components/main.tsx';
 
 function App() {
-// ALL_SOURCES: 1, ADD_SOURCE: 2, EDIT_SOURCE: 3
+// ALL_SOURCES: 1, ADD_SOURCE: 2, EDIT_SOURCE: 3, DELETE_SOURCE: 4
 let [pageToLoad, setPageToLoad] = useState(1);  // Automatically start with all sources loaded
 let [sourceToEdit, setSourceToEdit] = useState(-1);
 
@@ -34,9 +34,9 @@ function renderPage() {
 }
 
 // Renders the edit page
-function renderEditPage(sourceID) {
+function renderSpecialPage(page, sourceID) {
     setSourceToEdit(sourceID);
-    setPageToLoad(3);
+    setPageToLoad(page);
 }
 
 // Get correct icon type
@@ -60,7 +60,7 @@ return (<Container style={{alignContent: "center"}}>
     <Button className={"float-bottom-right pointer-hover"} onClick={renderPage}>
         <FontAwesomeIcon icon={getIconType()} size={"2x"} className={"centered-item"} />
     </Button>
-    <Main className="first-item-below-header" toLoad={pageToLoad} sourceToEdit={sourceToEdit} renderEditPage={sourceID => renderEditPage(sourceID)} />
+    <Main className="first-item-below-header" toLoad={pageToLoad} sourceToEdit={sourceToEdit} renderSpecialPage={(page, sourceID) => renderSpecialPage(page, sourceID)} />
 </Container>);
 }
 

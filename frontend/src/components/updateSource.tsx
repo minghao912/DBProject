@@ -22,15 +22,15 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
         get(sourceToEdit);
     }, []);
 
+    function get(id: number) {
+        axios.get(`http://localhost:5000/sources/get/${id}`).then(response => {
+            setData(response.data as Source);
+        }).catch(err => alert(err));
+    }
+
     // No source with ID found
     if (source === undefined)
         return <></>;
-
-    function get(id: number) {
-        axios.get(`http://localhost:5000/sources/get/${id}`).then(response => {
-            setData(response.data as Source)
-        }).catch(err => alert(err));
-    }
 
     function setData(s: Source) {
         let info = [s.name, s.organization, s.phone, s.email, s.remarks];

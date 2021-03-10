@@ -8,5 +8,5 @@ urlpatterns = [
     path('sources/get/all', views.getAll),
     path('sources/create/', views.createSource),
     path('sources/update/<int:id>', views.updateSource),
-    path('sources/count', views.getCount)
+    path('sources/delete/<int:id>', views.deleteSource)
 ]

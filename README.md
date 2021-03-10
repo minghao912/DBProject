@@ -15,3 +15,7 @@ Add New Source:
 Update Source:
 
 ![update](sample/update.PNG)
+
+Delete Source:
+
+![delete](sample/delete.PNG)

@@ -49,8 +49,11 @@ def updateSource(request, id):
         "id": modified.id
     })
 
-@api_view(['GET'])
-def getCount(request):
+@api_view(['DELETE'])
+def deleteSource(request, id):
+    source = Source.objects.get(id=id)
+    deletedID = source.id
+    source.delete()
     return JsonResponse({
-        "count": Source.objects.count()
+        "id": deletedID
     })
