@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 
 import { Source, UpdateProps } from './utils';
@@ -8,6 +9,7 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
     const [source, setSource] = useState<Source>({} as Source);
     const [prefillInfo, setPrefillInfo] = useState<string[]>([]);
     const sourceToEdit = props.sourceToEdit as number;
+    const classesFromParent = props.className as string;
 
     const [name, setName] = useState("");
     const [organization, setOrganization] = useState("");
@@ -21,13 +23,13 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
     }, []);
 
     // No source with ID found
-    if (source == undefined)
+    if (source === undefined)
         return <></>;
 
     function get(id: number) {
         axios.get(`http://localhost:5000/sources/get/${id}`).then(response => {
             setData(response.data as Source)
-        }).catch(err => console.error(err));
+        }).catch(err => alert(err));
     }
 
     function setData(s: Source) {
@@ -58,7 +60,7 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
 
     // Render input form
     return (
-        <Row className={`${props.className} align-items-center center-align-children full-width`}>
+        <Row className={`${classesFromParent} align-items-center center-align-children full-width`}>
             <Form className="center-align-children full-width">
                 <Form.Group>
                     <h2>Basic Information</h2>

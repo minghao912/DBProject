@@ -1,7 +1,7 @@
 import axios from 'axios';
+
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,7 +16,7 @@ export default function GetAllSources(props: SubProps) {
             setData(response.data as Source[]);
             
             console.log("Got all sources:\n" + JSON.stringify(data));
-        }).catch(err => console.error(err));
+        }).catch(err => alert(err));
     }, []);
 
     return (
@@ -35,7 +35,7 @@ function GetCardsForAllSources(props: any): JSX.Element {
     let sourceData = props.sources as Source[];
     let cardHTML: JSX.Element[] = [];
 
-    if (sourceData.length == 0)
+    if (sourceData.length === 0)
         return <></>;
 
     for (const s of sourceData) {
@@ -79,7 +79,7 @@ function getCardFromSource(source: Source, renderEditPage: (sourceID: number) =>
 
 // Determines if a source has its "Remarks" section empty
 function getRemarksSection(s: Source): JSX.Element {
-    if (s.remarks == "")
+    if (s.remarks === "")
         return <></>;   // Return empty
     else return <p className="mt-4">{s.remarks}</p>
 }

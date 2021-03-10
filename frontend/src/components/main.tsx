@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import React from 'react';
 
 import GetAllSources from './getAllSources';
 import CreateSoure from './createSource';
@@ -7,8 +6,8 @@ import UpdateSource from './updateSource';
 import { MainProps, PagesToLoad } from './utils';
 
 export default function Main(props: MainProps) {
-    let pageToLoad = props.toLoad as PagesToLoad;
-    let classesFromParent = props.className as string;
+    const pageToLoad = props.toLoad as PagesToLoad;
+    const classesFromParent = props.className as string;
 
     console.log("Reloading, page to load is now " + pageToLoad);
 

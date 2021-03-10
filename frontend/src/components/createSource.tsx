@@ -10,7 +10,6 @@ export default function CreateSource(props: SubProps) {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [remarks, setRemarks] = useState("");
-    const [retVal, setRetVal] = useState("");
 
     let classesFromParent = props.className as string;
 
@@ -24,9 +23,9 @@ export default function CreateSource(props: SubProps) {
             remarks: remarks
         }).then(response => {
             console.log(response);
-            setRetVal(`Your new source has been added with ID ${response.data.id}`);
+            console.log(`Your new source has been added with ID ${response.data.id}`);
         }).catch(err => {
-            console.log(err);
+            alert(err);
         });
     }
 
@@ -54,7 +53,7 @@ export default function CreateSource(props: SubProps) {
 
                         <Form.Group as={Col}>
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" placeholder="e.g. abc@example.com" onChange={(e) => setRemarks(e.target.value)} />
+                            <Form.Control type="email" placeholder="e.g. abc@example.com" onChange={(e) => setEmail(e.target.value)} />
                         </Form.Group>
                     </Form.Row>
                 </Form.Group>

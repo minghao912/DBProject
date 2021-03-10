@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 
+// NOT USED
 export default function GetSource(props: any) { //: JSON {
     const [id, setID] = useState(NaN);
     const [name, setName] = useState("");
@@ -16,7 +17,7 @@ export default function GetSource(props: any) { //: JSON {
             setPhone(response.data.phone);
             setEmail(response.data.email);
             setRemarks(response.data.remarks);
-        }).catch(err => console.error(err));
+        }).catch(err => alert(err));
     }
 
     return (
