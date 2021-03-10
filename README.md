@@ -10,8 +10,8 @@ Main Page:
 
 Add New Source:
 
-![add](sample/add.png)
+![add](sample/add.PNG)
 
 Update Source:
 
-![update](sample/update.png)
+![update](sample/update.PNG)
