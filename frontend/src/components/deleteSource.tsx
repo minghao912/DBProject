@@ -13,7 +13,9 @@ export default function DeleteSource(props: UpdateProps): JSX.Element {
 
     // Automatically get source information
     useEffect(() => {
-        get(sourceToDelete);
+        try {
+            get(sourceToDelete);
+        } catch(err) {}
     }, []);
 
     function get(id: number) {
@@ -34,7 +36,7 @@ export default function DeleteSource(props: UpdateProps): JSX.Element {
     }
 
     return (
-        <Container>
+        <Container className={classesFromParent}>
             <Row className="justify-content-md-center my-3">
                 <Card style={{width: "100%"}}>
                     <Card.Header>

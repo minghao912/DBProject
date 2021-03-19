@@ -6,11 +6,10 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Source, UpdateProps } from './utils';
 
 export default function UpdateSource(props: UpdateProps): JSX.Element {
-    const [source, setSource] = useState<Source>({} as Source);
-    const [prefillInfo, setPrefillInfo] = useState<string[]>([]);
     const sourceToEdit = props.sourceToEdit as number;
     const classesFromParent = props.className as string;
 
+    const [source, setSource] = useState<Source>({} as Source);
     const [name, setName] = useState("");
     const [organization, setOrganization] = useState("");
     const [phone, setPhone] = useState("");
@@ -22,10 +21,27 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
         get(sourceToEdit);
     }, []);
 
+    // Gets source to prepopulate values
     function get(id: number) {
         axios.get(`http://localhost:5000/sources/get/${id}`).then(response => {
             setData(response.data as Source);
-        }).catch(err => alert(err));
+        }).catch(err => {
+            alert(err);
+            throw(err);
+        });
+    }
+
+    // Prepopulates form
+    function prepopulate(info: string[]) {
+        // Get all the fields in the form
+        let formFields: HTMLInputElement[] = [];
+        const form = document.querySelector("#input-form");
+        form!.querySelectorAll(".form-control").forEach(e => formFields.push(e as HTMLInputElement));
+        
+        // Set their value
+        for (const i in formFields) {
+            formFields[i].value = info[i];
+        }
     }
 
     // No source with ID found
@@ -40,7 +56,9 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
         setPhone(s.phone);
         setEmail(s.email);
         setRemarks(s.remarks);
-        setPrefillInfo(info);
+
+        // Prepopulate form with the above info
+        prepopulate(info); 
     }
 
     function submit() {
@@ -56,7 +74,7 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
             console.log(response);
             console.log(`Your new source has been updated with ID ${response.data.id}`);
 
-            //window.location.href = "/"; // Redirect to home page
+            window.location.href = "/"; // Redirect to home page
         }).catch(err => {
             console.log(err);
         });
@@ -65,28 +83,28 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
     // Render input form
     return (
         <Row className={`${classesFromParent} align-items-center center-align-children full-width`}>
-            <Form className="center-align-children full-width">
+            <Form className="center-align-children full-width" id="input-form">
                 <Form.Group>
                     <h2>Basic Information</h2>
                     <Form.Row className="mb-5">
                         <Form.Group as={Col}>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" name="name" defaultValue={prefillInfo[0]} onChange={e => setName(e.target.value)} />
+                            <Form.Label>Name *</Form.Label>
+                            <Form.Control type="text" name="name" onChange={e => setName(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group as={Col}>
-                            <Form.Label>Organization</Form.Label>
-                            <Form.Control type="text" name="organization" defaultValue={prefillInfo[1]} onChange={e => setOrganization(e.target.value)} />
+                            <Form.Label>Organization *</Form.Label>
+                            <Form.Control type="text" name="organization" onChange={e => setOrganization(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group as={Col}>
                             <Form.Label>Phone</Form.Label>
-                            <Form.Control type="text" name="phone" defaultValue={prefillInfo[2]} onChange={e => setPhone(e.target.value)} />
+                            <Form.Control type="text" name="phone" onChange={e => setPhone(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group as={Col}>
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" name="email" defaultValue={prefillInfo[3]} onChange={e => {setEmail(e.target.value); console.log(email);}} />
+                            <Form.Control type="email" name="email" onChange={e => setEmail(e.target.value)} />
                         </Form.Group>
                     </Form.Row>
                 </Form.Group>
@@ -95,7 +113,7 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
                     <h2>Additional Information</h2>
                     <Form.Row className="mb-5">
                         <Form.Group as={Col}>
-                            <Form.Control as="textarea" name="remarks" id="remarks-input" defaultValue={prefillInfo[4]} onChange={e => setRemarks(e.target.value)} />
+                            <Form.Control as="textarea" name="remarks" id="remarks-input" onChange={e => setRemarks(e.target.value)} />
                         </Form.Group>
                     </Form.Row>
                 </Form.Group>

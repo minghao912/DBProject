@@ -51,7 +51,7 @@ function GetCardsForAllSources(props: any): JSX.Element {
 function getCardFromSource(source: Source, renderSpecialPage: (page: PagesToLoad, sourceID: number) => void): JSX.Element {
     console.log("Creating card for source " + source.id);
 
-    return (<Row className={`row my-3`}>
+    return (<Row className={`row my-3`} id={`card-source-${source.id}`}>
         <Card style={{width: "100%"}}>
             <Card.Header>
                 <Card.Title className="source-card-title">

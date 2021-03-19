@@ -37,12 +37,12 @@ export default function CreateSource(props: SubProps) {
                     <h2>Basic Information</h2>
                     <Form.Row className="mb-5">
                         <Form.Group as={Col}>
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label>Name *</Form.Label>
                             <Form.Control type="text" placeholder="e.g. Gojo Satoru" onChange={(e) => setName(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group as={Col}>
-                            <Form.Label>Organization</Form.Label>
+                            <Form.Label>Organization *</Form.Label>
                             <Form.Control type="text" placeholder="e.g. Jujutsu Kousen" onChange={(e) => setOrganization(e.target.value)} />
                         </Form.Group>
 
