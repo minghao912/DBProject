@@ -44,6 +44,8 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
     }
 
     function submit() {
+        console.log("Email is " + email);
+
         axios.put(`http://localhost:5000/sources/update/${source.id}`, {
             name: name,
             organization: organization,
@@ -53,6 +55,8 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
         }).then(response => {
             console.log(response);
             console.log(`Your new source has been updated with ID ${response.data.id}`);
+
+            //window.location.href = "/"; // Redirect to home page
         }).catch(err => {
             console.log(err);
         });
@@ -82,7 +86,7 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
 
                         <Form.Group as={Col}>
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" name="email" defaultValue={prefillInfo[3]} onChange={e => setEmail(e.target.value)} />
+                            <Form.Control type="email" name="email" defaultValue={prefillInfo[3]} onChange={e => {setEmail(e.target.value); console.log(email);}} />
                         </Form.Group>
                     </Form.Row>
                 </Form.Group>
@@ -97,7 +101,7 @@ export default function UpdateSource(props: UpdateProps): JSX.Element {
                 </Form.Group>
 
                 <div className="text-center">
-                    <Button variant="dark" size="lg" type="submit" onClick={submit}>
+                    <Button variant="dark" size="lg" onClick={submit}>
                         Update Source
                     </Button>
                 </div>

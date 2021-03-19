@@ -45,9 +45,7 @@ def updateSource(request, id):
         return JsonResponse(serializer.errors, status=400)
     
     modified = serializer.save()
-    return JsonResponse({
-        "id": modified.id
-    })
+    return JsonResponse(serializer.data)
 
 @api_view(['DELETE'])
 def deleteSource(request, id):

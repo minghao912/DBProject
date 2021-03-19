@@ -30,7 +30,7 @@ export default function DeleteSource(props: UpdateProps): JSX.Element {
     }
 
     function returnHome() {
-        window.location.href="/";
+        window.location.href = "/";
     }
 
     return (
